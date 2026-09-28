@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>¿Me perdonas? 😿</title>
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(180deg,#fff0f8,#ffeaf4,#fff5fb);
+  font-family:'Poppins',sans-serif;
+  overflow:hidden;
+  text-align:center;
+  touch-action:none;
+  transition:background 0.6s ease;
+}
+
+/* 💞 Título */
+h1{
+  color:#111;
+  font-size:2.4rem;
+  font-weight:700;
+  margin-bottom:14px;
+  text-shadow:0 0 8px rgba(255,255,255,0.4);
+  transition:opacity 1s ease;
+}
+
+/* 🌸 Tarjeta */
+.card{
+  width:430px;
+  min-height:640px;
+  background:rgba(255,255,255,0.65);
+  backdrop-filter:blur(8px);
+  border-radius:24px;
+  box-shadow:0 0 25px rgba(255,180,210,0.3),0 0 60px rgba(255,180,210,0.2);
+  padding:30px 20px 25px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  position:relative;
+  overflow:hidden;
+  transition:transform 0.6s ease, opacity 1s ease;
+}
+
+/* 🐱 GIF */
+img{
+  width:380px;
+  height:380px;
+  object-fit:cover;
+  border-radius:22px;
+  box-shadow:0 0 20px rgba(255,150,200,0.4);
+  transition:opacity 0.8s ease, transform 0.8s ease;
+  animation:float 4s ease-in-out infinite;
+}
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* 💬 Texto */
+#textContainer{
+  position:absolute;
+  bottom:25%;
+  left:50%;
+  transform:translateX(-50%);
+  width:90%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+.text{
+  font-size:1.45rem;
+  color:#ff2f8a;
+  font-weight:600;
+  opacity:0;
+  text-shadow:0 0 12px rgba(255,140,200,0.3);
+  animation:fadeIn 0.6s ease forwards;
+  word-wrap:break-word;
+  line-height:1.4em;
+}
+@keyframes fadeIn {
+  from { opacity:0; transform:translateY(15px);}
+  to { opacity:1; transform:translateY(0);}
+}
+
+/* 💖 Botones */
+.buttons{
+  display:flex;
+  gap:30px;
+  justify-content:center;
+  position:absolute;
+  bottom:60px;
+  width:100%;
+}
+button{
+  border:none;
+  border-radius:50px;
+  padding:16px 38px;
+  font-size:1.2rem;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.4s ease;
+  box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+#yes{
+  background:linear-gradient(145deg,#ff80c1,#ffa8d6);
+  color:#fff;
+  text-shadow:0 0 6px rgba(255,255,255,0.8);
+}
+#no{
+  background:#fff;
+  color:#ff4d94;
+  border:2px solid #ff8fc6;
+  transition:opacity 0.6s ease, transform 0.4s ease;
+}
+
+/* ❤️ Corazones */
+.heart{
+  position:fixed;
+  bottom:-10px;
+  font-size:22px;
+  color:#ff7dbf;
+  opacity:0.9;
+  animation:rise 5s linear forwards;
+  pointer-events:none;
+  z-index:10;
+}
+@keyframes rise{
+  0%{transform:translateY(0) scale(1);opacity:1;}
+  100%{transform:translateY(-110vh) scale(0.8);opacity:0;}
+}
+
+/* 🌟 Pantalla final */
+.finalScreen{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:linear-gradient(180deg,#ffeaf5,#ffd6eb);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  opacity:0;
+  animation:fadeInFinal 1.5s ease forwards;
+}
+@keyframes fadeInFinal{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+
+.finalGif{
+  width:420px;
+  height:420px;
+  border-radius:20px;
+  box-shadow:0 0 25px rgba(255,160,200,0.6);
+  margin-bottom:25px;
+}
+
+.finalText{
+  font-size:1.6rem;
+  color:#ff4fa6;
+  text-align:center;
+  text-shadow:0 0 12px rgba(255,150,200,0.6);
+  margin:0 20px 10px;
+}
+
+.finalSubText{
+  max-width:650px;
+  margin:0 25px;
+  font-size:1.05rem;
+  line-height:1.6;
+  color:#9f4772;
+  text-align:center;
+}
+
+/* 📱 Móvil */
+@media(max-width:480px){
+  .card{width:340px;min-height:520px;}
+  img{width:300px;height:300px;}
+  h1{font-size:2rem;}
+  .text{font-size:1.2rem;}
+  button{padding:12px 26px;font-size:1.05rem;}
+  .buttons{bottom:45px;}
+  .finalGif{width:320px;height:320px;}
+  .finalText{font-size:1.3rem;}
+  .finalSubText{font-size:0.95rem;}
+}
+</style>
+</head>
+<body>
+
+<h1 id="title">¿Me perdonas, mi amor? 💔</h1>
+
+<div class="card" id="card">
+  <img id="gif" src="https://media.giphy.com/media/PRjodsw2CF2dr2oVhq/giphy.gif" alt="gatito triste"/>
+  <div id="textContainer"></div>
+
+  <div class="buttons" id="buttons">
+    <button id="no">Todavía no 💔</button>
+    <button id="yes">Quiero perdonarte ❤️</button>
+  </div>
+</div>
+
+<audio id="soundYes" src="https://assets.mixkit.co/sfx/preview/mixkit-cute-level-up-2987.mp3"></audio>
+
+<script>
+const frases=[
+  "Sé que la embarré... 🥺",
+  "No debí asumir cosas sobre ti.",
+  "Debí escucharte en vez de sacar mis propias conclusiones.",
+  "Entiendo que estés molesta conmigo. 💔",
+  "No quiero justificar lo que hice ni presionarte.",
+  "Solo quiero que sepas que me importas muchísimo. ❤️",
+  "Si me das otra oportunidad, quiero demostrarte con hechos que aprendí de esto.",
+  "No tienes que perdonarme ahora. Solo quería pedirte perdón de corazón. 💐"
+];
+
+const gifs=[
+  "https://media.giphy.com/media/PRjodsw2CF2dr2oVhq/giphy.gif",
+  "https://media.giphy.com/media/tk8cksLHlE7Gpo5lSI/giphy.gif",
+  "https://media.giphy.com/media/8wkBuj77ftd64V2UjQ/giphy.gif",
+  "https://media.giphy.com/media/6FUcoC9LZUe5msT8b7/giphy.gif",
+  "https://media.giphy.com/media/xrWwgpFS6T2QOx8pVS/giphy.gif",
+  "https://media.giphy.com/media/7DcWULPrivdaZr6wwF/giphy.gif",
+  "https://media.giphy.com/media/kyM13pBqFf2dpzJjHe/giphy.gif",
+  "https://media.giphy.com/media/fpFa9Nl3QZOVYYRM83/giphy.gif"
+];
+
+const finalGif="https://media.giphy.com/media/l4iLX16H9dQV6bTgSc/giphy.gif";
+
+const gif=document.getElementById('gif');
+const textContainer=document.getElementById('textContainer');
+const card=document.getElementById('card');
+const btnNo=document.getElementById('no');
+const btnYes=document.getElementById('yes');
+const buttons=document.getElementById('buttons');
+const soundYes=document.getElementById('soundYes');
+const title=document.getElementById('title');
+let paso=0;
+
+mostrarTexto(frases[0]);
+
+function mostrarTexto(t){
+  const newText=document.createElement('p');
+  newText.className='text';
+  newText.textContent=t;
+  textContainer.innerHTML='';
+  textContainer.appendChild(newText);
+}
+
+btnNo.addEventListener('click',()=>{
+  paso++;
+  if(paso<frases.length){
+    gif.style.opacity=0;
+    setTimeout(()=>{
+      mostrarTexto(frases[paso]);
+      gif.src=gifs[paso];
+      gif.style.opacity=1;
+    },500);
+
+    const noSize=Math.max(0.08,1-0.13*paso);
+    const yesSize=1+0.24*paso;
+    btnNo.style.transform=`scale(${noSize})`;
+    btnYes.style.transform=`scale(${yesSize})`;
+
+    document.body.style.background=`linear-gradient(180deg,
+      rgba(255,${240 - paso*15},${250 - paso*12}),
+      rgba(255,${220 - paso*18},${240 - paso*14}),
+      rgba(255,${230 - paso*10},${250 - paso*8}))`;
+
+    if(paso===frases.length-1){
+      btnNo.style.transform="scale(0.9)";
+      btnYes.style.transform="scale(1.15)";
+    }
+  }
+});
+
+btnYes.addEventListener('click',()=>{
+  soundYes.play();
+  title.style.opacity="0";
+  card.style.opacity="0";
+  setTimeout(()=>{
+    card.style.display="none";
+    crearPantallaFinal();
+  },1000);
+});
+
+function crearPantallaFinal(){
+  const finalDiv=document.createElement("div");
+  finalDiv.className="finalScreen";
+
+  const gifFinal=document.createElement("img");
+  gifFinal.src=finalGif;
+  gifFinal.className="finalGif";
+
+  const textFinal=document.createElement("p");
+  textFinal.className="finalText";
+  textFinal.textContent="Gracias por darme otra oportunidad. ❤️";
+
+  finalDiv.appendChild(gifFinal);
+  finalDiv.appendChild(textFinal);
+
+  const subText=document.createElement("p");
+  subText.className="finalSubText";
+  subText.textContent="Sé que las palabras no arreglan todo, pero quiero demostrártelo poco a poco con mis acciones. Te quiero muchísimo. 🇨🇴❤️🇦🇷";
+  finalDiv.appendChild(subText);
+  document.body.appendChild(finalDiv);
+  lanzarCorazones();
+}
+
+function lanzarCorazones(){
+  for(let i=0;i<60;i++){
+    const heart=document.createElement("div");
+    heart.className="heart";
+    heart.textContent=Math.random()>0.3?"💖":"✨";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.animationDelay=Math.random()*2+"s";
+    heart.style.fontSize=(18+Math.random()*28)+"px";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),5000);
+  }
+}
+</script>
+
+</body>
+</html>
